@@ -7,9 +7,7 @@ import math
 import serial
 
 import Controls
-import TankDrive
-import MotorController
-import SerialComms
+import DriveTrain
 
 
 
@@ -19,7 +17,7 @@ def setup():
     GPIO.setmode(GPIO.BOARD)
 
     Controls.controlsSetup()
-    TankDrive.tankdriveSetup()
+    DriveTrain.tankdriveSetup()
 
 #---------------------LOOP----------------------------
     
@@ -35,8 +33,8 @@ def loop():
 
         #----------------TANK DRIVE--------------------
         #get tank drive values
-        leftDrive = TankDrive.updateTankDriveLeft()
-        rightDrive = TankDrive.updateTankDriveRight()
+        leftDrive = DriveTrain.updateTankDriveLeft()
+        rightDrive = DriveTrain.updateTankDriveRight()
 
         #convert drive side values to string
         leftWrite = str(leftDrive).encode('utf-8')
