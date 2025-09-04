@@ -8,7 +8,6 @@ import time
 import math
 #import _thread
 
-import SerialComms
 import Controls
 
 left = 0
