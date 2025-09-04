@@ -35,14 +35,18 @@ def loop():
         #get tank drive values
         leftDrive = DriveTrain.updateTankDriveLeft()
         rightDrive = DriveTrain.updateTankDriveRight()
+        #ADD STRAFE INPUTS
+        
 
         #convert drive side values to string
         leftWrite = str(leftDrive).encode('utf-8')
         rightWrite = str(rightDrive).encode('utf-8')
-
+        #ADD STRAFE INPUTS
+        
         #send data to Arduino
         ser.write(b"<incoming, "+b"2, "+leftWrite+b">\n")
         ser.write(b"<incoming, "+b"3, "+rightWrite+b">\n")
+         #ADD STRAFE INPUTS
 
 
         #-----------------SERIAL IN---------------------
