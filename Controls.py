@@ -73,7 +73,7 @@ def buttonX():
     for joystick in joysticks.values():
         return joystick.get_button(2)
 
-def buttonX():
+def buttonY():
     for joystick in joysticks.values():
         return joystick.get_button(3)
 
