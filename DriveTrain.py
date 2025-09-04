@@ -27,8 +27,11 @@ def tankdriveSetup():
         #right drive set to arduino PIN 3
         right = 3
 
+		#strafe drive set to arduino PIN 4
+		strafe = 4
+
 #-----------------------LEFT DRIVE-----------------------------
-def updateTankDriveLeft():
+def updateHDriveLeft():
         try:
                 #left drive side     
                 joyLeft = Controls.joyLeftUpDown()
@@ -45,7 +48,24 @@ def updateTankDriveLeft():
         return pwmLeft
 
 #-----------------------RIGHT DRIVE-----------------------------
-def updateTankDriveRight():
+def updateHDriveRight():
+        try:
+                #right drive side     
+                joyRight = Controls.joyRightUpDown()
+                #map the -1 to 1 value of the joystick motion
+                #to a range of 1000 to 2000, the pwm range of the esc
+                pwmRight = int(map(joyRight, -1, 1, 1000, 2000))
+        except:
+                #if something goes wrong, default the MCs to not move
+                #likely cause would be controller disconnect
+                print('failed to map values')
+                pwmLeft = 1500
+                pwmRight = 1500
+                
+        return pwmRight
+
+#-----------------------STRAFE DRIVE-----------------------------
+def updateHDriveStrafe():
         try:
                 #right drive side     
                 joyRight = Controls.joyRightUpDown()
