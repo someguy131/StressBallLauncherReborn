@@ -2,9 +2,11 @@
 
 #define driveLeft 2
 #define driveRight 3
+#define driveStrafe 4
 
 Servo MCLeft;
 Servo MCRight;
+Servo MCStrafe;
 
 //example serial program
 //expects <text, int, float>
@@ -34,6 +36,10 @@ void setup() {
     MCRight.attach(3);
     Serial.println("right started");
     MCRight.writeMicroseconds(1500);
+
+    MCStrafe.attach(4);
+    Serial.println("strafe started");
+    MCStrafe.writeMicroseconds(1500);
 }
 
 //============
@@ -55,6 +61,10 @@ void loop() {
         }else if(idVal == 3){
           MCRight.writeMicroseconds(pwmVal);
           Serial.println("right");
+          //Serial.println(pwmVal);
+        }else if(idVal == 4){
+          MCStrafe.writeMicroseconds(pwmVal);
+          Serial.println("strafe");
           //Serial.println(pwmVal);
         }else{
           Serial.println("bad id");
