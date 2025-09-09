@@ -36,14 +36,15 @@ def updateHDriveLeft():
                 #left drive side     
                 joyLeft = Controls.joyLeftUpDown()
                 #map the -1 to 1 value of the joystick motion
-                #to a range of 1000 to 2000, the pwm range of the esc
-                pwmLeft = int(map(joyLeft, -1, 1, 2000, 1000))
+                #to a range of 500 to 2500, the pwm range of SparkMini ESCs
+                pwmLeft = int(map(joyLeft, -1, 1, 500, 2500))
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
+				pwmStrafe = 1500
 
         return pwmLeft
 
@@ -53,14 +54,15 @@ def updateHDriveRight():
                 #right drive side     
                 joyRight = Controls.joyRightUpDown()
                 #map the -1 to 1 value of the joystick motion
-                #to a range of 1000 to 2000, the pwm range of the esc
-                pwmRight = int(map(joyRight, -1, 1, 1000, 2000))
+                #to a range of 500 to 2500, the pwm range of SparkMini ESCs
+                pwmRight = int(map(joyRight, -1, 1, 500, 2500))
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
+				pwmStrafe = 1500
                 
         return pwmRight
 
@@ -76,8 +78,8 @@ def updateHDriveStrafe():
 				#full left is -1, full right is 1
 				strafeValue = rightTrigger - leftTrigger
                 #map the -1 to 1 value of the joystick motion
-                #to a range of 1000 to 2000, the pwm range of the esc
-                pwmStrafe = int(map(strafeValue, -1, 1, 1000, 2000))
+                #to a range of 500 to 2500, the pwm range of SparkMini ESCs
+                pwmStrafe = int(map(strafeValue, -1, 1, 500, 2500))
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
