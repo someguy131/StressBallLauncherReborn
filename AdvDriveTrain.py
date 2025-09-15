@@ -34,8 +34,8 @@ def tankdriveSetup():
         left = 2
         #right drive set to arduino PIN 3
         right = 3
-		    #strafe drive set to arduino PIN 4
-		    strafe = 4
+		#strafe drive set to arduino PIN 4
+		strafe = 4
 
 #-----------------------LEFT DRIVE-----------------------------
 def updateHDriveLeft():
@@ -51,7 +51,7 @@ def updateHDriveLeft():
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				        pwmStrafe = 1500
+				pwmStrafe = 1500
 
         return pwmLeft
 
@@ -69,7 +69,7 @@ def updateHDriveRight():
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				        pwmStrafe = 1500
+				pwmStrafe = 1500
                 
         return pwmRight
 
@@ -79,11 +79,11 @@ def updateHDriveStrafe():
                 #right drive side     
 				        #triggers have a range of 0 to 1
                 rightTrigger = Controls.triggerRight()
-				        leftTrigger = Controls.triggerLeft()
+				leftTrigger = Controls.triggerLeft()
 
-				        #configure to -1 to 1 range, from left to right
-				        #full left is -1, full right is 1
-				        strafeValue = rightTrigger - leftTrigger
+				#configure to -1 to 1 range, from left to right
+				#full left is -1, full right is 1
+				strafeValue = rightTrigger - leftTrigger
                 #map the -1 to 1 value of the joystick motion
                 #to a range of 500 to 2500, the pwm range of SparkMini ESCs
                 pwmStrafe = int(map(strafeValue, -1, 1, 500, 2500))
@@ -93,6 +93,6 @@ def updateHDriveStrafe():
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				        pwmStrafe = 1500
+				pwmStrafe = 1500
                 
         return pwmStrafe
