@@ -2,11 +2,11 @@
 
 #NOT COMPLETED-----------------------------------------------------------------
 #Complete mixing for rotate
-  #Limit max v
-  #Add rotation rate
-  #reconfig controls
-  #add rotation rate modifier
-  #test and tune for good rotation/linear speeds
+        #Limit max v
+        #Add rotation rate
+        #reconfig controls
+        #add rotation rate modifier
+        #test and tune for good rotation/linear speeds
 
 #imports
 import RPi.GPIO as GPIO
@@ -34,65 +34,82 @@ def tankdriveSetup():
         left = 2
         #right drive set to arduino PIN 3
         right = 3
-		#strafe drive set to arduino PIN 4
-		strafe = 4
+        #strafe drive set to arduino PIN 4
+        strafe = 4
 
 #-----------------------LEFT DRIVE-----------------------------
 def updateHDriveLeft():
         try:
-                #left drive side     
+                #left drive side
                 joyLeft = Controls.joyLeftUpDown()
                 #map the -1 to 1 value of the joystick motion
                 #to a range of 500 to 2500, the pwm range of SparkMini ESCs
                 pwmLeft = int(map(joyLeft, -1, 1, 500, 2500))
+
+                rotRate = updateRotationRate()
+                if(rotRate > 1):
+                        pwmLeft = pwmLeft + rotRate
+                else:
+                        pwmLeft = pwmLeft - rotRate*-1
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				pwmStrafe = 1500
+                pwmStrafe = 1500
 
         return pwmLeft
 
 #-----------------------RIGHT DRIVE-----------------------------
 def updateHDriveRight():
         try:
-                #right drive side     
-                joyRight = Controls.joyRightUpDown()
+                #right drive side
+                joyLeft = Controls.joyLeftUpDown()
                 #map the -1 to 1 value of the joystick motion
                 #to a range of 500 to 2500, the pwm range of SparkMini ESCs
-                pwmRight = int(map(joyRight, -1, 1, 500, 2500))
+                pwmRight = int(map(joyLeft, -1, 1, 500, 2500))
+
+                rotRate = updateRotationRate()
+                if(rotRate > 1):
+                        pwmRight = pwmRight - rotRate
+                else:
+                        pwmRight = pwmRight + rotRate*-1
+                                
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				pwmStrafe = 1500
-                
+                pwmStrafe = 1500
+
         return pwmRight
+
+def updateRotationRate():
+        try:
+                joyRight = Controls.joyRightLeftRight()
+
+                #convert value to small pwm val, to be +/- from tank drive
+                pwmRotRate = int(map(joyRight, -1, 1, -500, 500))
+                
+        return pwmRotRate
+                
+        
 
 #-----------------------STRAFE DRIVE-----------------------------
 def updateHDriveStrafe():
         try:
-                #right drive side     
-				        #triggers have a range of 0 to 1
-                rightTrigger = Controls.triggerRight()
-				leftTrigger = Controls.triggerLeft()
-
-				#configure to -1 to 1 range, from left to right
-				#full left is -1, full right is 1
-				strafeValue = rightTrigger - leftTrigger
+                joyLeft = Controls.joyLeftLeftRight()
                 #map the -1 to 1 value of the joystick motion
                 #to a range of 500 to 2500, the pwm range of SparkMini ESCs
-                pwmStrafe = int(map(strafeValue, -1, 1, 500, 2500))
+                pwmStrafe = int(map(joyLeft, -1, 1, 500, 2500))
         except:
                 #if something goes wrong, default the MCs to not move
                 #likely cause would be controller disconnect
                 print('failed to map values')
                 pwmLeft = 1500
                 pwmRight = 1500
-				pwmStrafe = 1500
-                
+                pwmStrafe = 1500
+
         return pwmStrafe
