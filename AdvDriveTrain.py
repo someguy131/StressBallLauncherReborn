@@ -2,10 +2,6 @@
 
 #NOT COMPLETED-----------------------------------------------------------------
 #Complete mixing for rotate
-        #Limit max v
-        #Add rotation rate
-        #reconfig controls
-        #add rotation rate modifier
         #test and tune for good rotation/linear speeds
 
 #imports
@@ -28,7 +24,7 @@ def map(value, fromLow, fromHigh, toLow, toHigh):
 
 
 #---------------------Setup------------------------
-#Use two motor controller objects, for left and right drive motors
+#Not really needed anymore, but kept for pin ref
 def tankdriveSetup():
         #left drive set to arduino PIN 2
         left = 2
@@ -89,7 +85,6 @@ def updateHDriveRight():
 def updateRotationRate():
         try:
                 joyRight = Controls.joyRightLeftRight()
-
                 #convert value to small pwm val, to be +/- from tank drive
                 pwmRotRate = int(map(joyRight, -1, 1, -500, 500))
                 
